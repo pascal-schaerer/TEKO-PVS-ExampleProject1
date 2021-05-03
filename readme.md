@@ -58,10 +58,11 @@ from django.db import models
 
 # Contact Model
 class Contact(models.Model):
-    type = (
-        ('private'),
-        ('business'),
+    CONTACT_TYPES = (
+        ('Priv', 'private'),
+        ('Busi', 'business'),
     )
+    type = models.CharField(max_length=4, choices=CONTACT_TYPES)
     name = models.CharField(max_length=256)
     first_name = models.CharField(max_length=256)
 
