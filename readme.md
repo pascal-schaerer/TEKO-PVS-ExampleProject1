@@ -105,3 +105,6 @@ class ContactAdmin(admin.ModelAdmin):
 class AddressAdmin(admin.ModelAdmin):
     pass
 ```
+
+# Open Questions
+https://dev.to/bfeldman/how-to-hide-your-secret-key-in-django-16kp
