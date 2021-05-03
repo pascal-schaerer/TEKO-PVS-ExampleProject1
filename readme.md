@@ -105,11 +105,3 @@ class ContactAdmin(admin.ModelAdmin):
 class AddressAdmin(admin.ModelAdmin):
     pass
 ```
-
-### Add Security
-
-```
-pip install django-environ
-```
-
-according https://dev.to/bfeldman/how-to-hide-your-secret-key-in-django-16kp
