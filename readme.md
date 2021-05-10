@@ -119,7 +119,55 @@ Remove in Class Contact
 ```
 
 Add in Class Address
-class Address(models.Model):
+class Address
 ```
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+```
+
+### Installiere Django Restframework
+```
+pipenv install djangorestframework
+```
+
+### Registriere Django Restframework
+Add in settings.py 
+```
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+]
+```
+
+### Serializer hinzufügen
+Add file serializer.py to backend folder
+```
+from rest_framework.serializers import ModelSerializer
+
+from .models import Contact, Address
+
+class AddressNestedSerializer(ModelSerializer):
+
+    class Meta:
+        model = Address
+        fields = ['id', 'street', 'zip', 'city', 'country']
+
+class ContactSerializer(ModelSerializer):
+    addresses = AddressNestedSerializer(many=True)
+
+    #Benötigt Model und Fields
+    class Meta:
+        model = Contact
+        fields = ['id', 'type', 'name', 'first_name', 'addresses']
+
+class ContactCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+class AddressSerializer(ModelSerializer):
+
+    class Meta:
+        model = Address
+        fields = ['id', 'street', 'zip', 'city', 'country']
 ```
