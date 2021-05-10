@@ -1,4 +1,4 @@
-# Workflow
+# Workflow Aufgabe 1
 
 ## Projekt erstellen
 
@@ -106,5 +106,25 @@ class AddressAdmin(admin.ModelAdmin):
     pass
 ```
 
-# Open Questions
+## Open Questions
 https://dev.to/bfeldman/how-to-hide-your-secret-key-in-django-16kp
+
+# Workflow Aufgabe 2
+
+### Ändern der Relationion zwischen Contact und Address
+
+```
+    name = models.CharField(max_length=256)
+    first_name = models.CharField(max_length=256)
+
+    ~~addresses = models.ManyToManyField('Address', related_name='contacts')~~
+
+# Address Model
+class Address(models.Model):
+@ -18,3 +17,4 @@ class Address(models.Model):
+    zip = models.CharField(max_length=10)
+    city = models.CharField(max_length=256)
+    country = models.CharField(max_length=2)
+
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+```

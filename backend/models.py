@@ -10,7 +10,6 @@ class Contact(models.Model):
     name = models.CharField(max_length=256)
     first_name = models.CharField(max_length=256)
 
-    addresses = models.ManyToManyField('Address', related_name='contacts')
 
 # Address Model
 class Address(models.Model):
@@ -18,3 +17,4 @@ class Address(models.Model):
     zip = models.CharField(max_length=10)
     city = models.CharField(max_length=256)
     country = models.CharField(max_length=2)
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
