@@ -145,21 +145,7 @@ from rest_framework.serializers import ModelSerializer
 
 from .models import Contact, Address
 
-class AddressNestedSerializer(ModelSerializer):
-
-    class Meta:
-        model = Address
-        fields = ['id', 'street', 'zip', 'city', 'country']
-
 class ContactSerializer(ModelSerializer):
-    addresses = AddressNestedSerializer(many=True)
-
-    #Benötigt Model und Fields
-    class Meta:
-        model = Contact
-        fields = ['id', 'type', 'name', 'first_name', 'addresses']
-
-class ContactCreateSerializer(ModelSerializer):
 
     class Meta:
         model = Contact
@@ -169,7 +155,7 @@ class AddressSerializer(ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ['id', 'street', 'zip', 'city', 'country']
+        fields = '__all__'
 ```
 
 ### View definieren
@@ -179,20 +165,15 @@ from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
 
-from .serializer import ContactSerializer, ContactCreateSerializer, AddressSerializer
+from .serializer import ContactSerializer, AddressSerializer
 from .models import Contact, Address
 
 class ContactApiView(ModelViewSet):
+    serializer_class = ContactSerializer
     queryset = Contact.objects.all()
 
-    def get_serializer_class(self):
-        if self.action == 'create' or self.action == 'update':
-            return ContactCreateSerializer
-        return ContactSerializer
 
 class AddressApiView(ModelViewSet):
-
-
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
 ```
