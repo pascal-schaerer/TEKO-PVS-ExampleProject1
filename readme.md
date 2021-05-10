@@ -196,3 +196,30 @@ class AddressApiView(ModelViewSet):
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
 ```
+
+### Routen definieren
+Registrieren der backend Routen in example_project/urls.py (include inkludieren nicht vergessen :) )
+```
+...
+from django.urls import path, include
+...
+
+urlpatterns = [
+    ...
+    path('api/v1/', include('backend.urls')),
+    ...
+]
+```
+
+Add file urls.py to backend
+```
+from rest_framework.routers import DefaultRouter
+
+from .views import ContactApiView, AddressApiView
+
+router = DefaultRouter()
+router.register('contacts', ContactApiView)
+router.register('addresses', AddressApiView)
+
+urlpatterns = router.urls
+```
