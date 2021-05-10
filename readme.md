@@ -119,7 +119,6 @@ Remove in Class Contact
 ```
 
 Add in Class Address
-# Address Model
 class Address(models.Model):
 ```
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
