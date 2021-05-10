@@ -113,18 +113,14 @@ https://dev.to/bfeldman/how-to-hide-your-secret-key-in-django-16kp
 
 ### Ändern der Relationion zwischen Contact und Address
 
+Remove in Class Contact
 ```
-    name = models.CharField(max_length=256)
-    first_name = models.CharField(max_length=256)
+    addresses = models.ManyToManyField('Address', related_name='contacts')
+```
 
-    ~~addresses = models.ManyToManyField('Address', related_name='contacts')~~
-
+Add in Class Address
 # Address Model
 class Address(models.Model):
-@ -18,3 +17,4 @@ class Address(models.Model):
-    zip = models.CharField(max_length=10)
-    city = models.CharField(max_length=256)
-    country = models.CharField(max_length=2)
-
+```
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
 ```
