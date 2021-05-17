@@ -254,3 +254,36 @@ urlpatterns = [
     path('api/v1/doc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
 ...
 ```
+
+##  Integriere Django Filters und aktiviere das Filtering von dem Feld Type im Model Contact
+
+### Installiere Library
+
+```
+pipenv install django-filter
+```
+
+### Registriere App
+
+```
+INSTALLED_APPS = [
+    ...
+    'django_filters',
+    ...
+]
+```
+
+### Erstelle den Filter für Feld 'type' im Contact
+in backend/views.py
+```
+...
+from django_filters.rest_framework import DjangoFilterBackend
+...
+
+class ContactApiView(ModelViewSet):
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['type',]
+
+```
