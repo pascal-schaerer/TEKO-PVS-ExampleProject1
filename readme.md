@@ -302,4 +302,37 @@ class ContactApiView(ModelViewSet):
     search_fields = ['name','first_name']
 ```
 
+## Aktivere TokenBased Authentication. Die Endpoints dürfen von allen gelesen werden, jedoch schreiben darf man nur, wenn man Authenifiziert ist.
+
+### Registriere App
+in settings.py
+```
+INSTALLED_APPS = [
+...
+    'rest_framework.authtoken',
+...
+]
+```
+
+### Änderungen migrieren
+
+```
+python manage.py migrate
+```
+
+### Zugriffsregel global setzen so default authentifizierung definieren
+in settings.py
+```
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]  
+}
+```
+
+### Open questions
+Post request läuft in 404 trotz token
 
