@@ -287,3 +287,19 @@ class ContactApiView(ModelViewSet):
     filterset_fields = ['type',]
 
 ```
+
+## Aktivere die Suche auf dem Endpoint contacts. Integriere die Felder Name, First_name
+in backend/views.py -> filters importieren, Searchfilters den filters_backends hinzufügen, search_fields definieren
+
+```
+...
+from rest_framework import filters
+...
+
+class ContactApiView(ModelViewSet):
+...
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['name','first_name']
+```
+
+
